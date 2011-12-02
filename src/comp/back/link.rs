@@ -651,12 +651,11 @@ fn link_binary(sess: session::session,
         sess.note(prog.err + prog.out);
         sess.abort_if_errors();
     }
-    // Clean up on Darwin
 
+    // Clean up on Darwin
     if sess.get_targ_cfg().os == session::os_macos {
         run::run_program("dsymutil", [out_filename]);
     }
-
 
     // Remove the temporary object file if we aren't saving temps
     if !sess.get_opts().save_temps {
@@ -664,6 +663,13 @@ fn link_binary(sess: session::session,
     }
 }
 
+fn rename_library(output: str, lm: link_meta) {
+    let libname =
+        std::os::dylib_filename(#fmt("%s-%s-%s",
+                                     lm.name, lm.extras_hash, lm.vers));
+    let fullname = fs::connect(fs::dirname(output), libname);
+    run::run_program("mv", [output, fullname]);
+}
 //
 // Local Variables:
 // mode: rust
