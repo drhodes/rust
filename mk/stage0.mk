@@ -13,13 +13,19 @@ $(HLIB0_H_$(CFG_HOST_TRIPLE))/$(CFG_RUNTIME): \
 		$(HBIN0_H_$(CFG_HOST_TRIPLE))/rustc$(X)
 	$(Q)touch $@
 
+## FIXME temporary hack for snapshot transition
+CORELIB_DUMMY :=$(call CFG_LIB_NAME,core-dummy)
+STDLIB_DUMMY :=$(call CFG_LIB_NAME,std-dummy)
+
 $(HLIB0_H_$(CFG_HOST_TRIPLE))/$(CFG_CORELIB): \
 		$(HBIN0_H_$(CFG_HOST_TRIPLE))/rustc$(X)
 	$(Q)touch $@
+	touch $(TLIB0_T_$(CFG_TARGET_TRIPLES)_H_$(CFG_HOST_TRIPLE))/$(CORELIB_DUMMY)
 
 $(HLIB0_H_$(CFG_HOST_TRIPLE))/$(CFG_STDLIB): \
 		$(HBIN0_H_$(CFG_HOST_TRIPLE))/rustc$(X)
 	$(Q)touch $@
+	touch $(TLIB0_T_$(CFG_TARGET_TRIPLES)_H_$(CFG_HOST_TRIPLE))/$(STDLIB_DUMMY)
 
 $(HLIB0_H_$(CFG_HOST_TRIPLE))/$(CFG_RUSTLLVM): \
 		$(HBIN0_H_$(CFG_HOST_TRIPLE))/rustc$(X)
