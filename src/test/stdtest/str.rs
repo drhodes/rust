@@ -1,5 +1,7 @@
-import std::str;
-import std::vec;
+import core::*;
+
+import str;
+import vec;
 
 #[test]
 fn test_eq() {

@@ -5,12 +5,12 @@ import rustc::syntax::parse::parser;
 
 import std::fs;
 import std::io;
-import std::option;
-import std::option::{none, some};
+import option;
+import option::{none, some};
 import std::run;
-import std::str;
+import str;
 import std::tempfile;
-import std::vec;
+import vec;
 
 type pkg = {
     name: str,
